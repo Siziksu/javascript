@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Learning JavaScript</title>
+    <meta charset="UTF-8">
+    <script src="js/main.js"></script>
+</head>
+<body>
+    <h1>JavaScript</h1>
+    <p>Add 7 + 23 + 412 = <span id='add'></span></p>
+</body>
+<script>
+"use strict";
+
+add([7, 23, 412], function(result) {
+    print(result, "Add 7 + 23 + 412: ");
+    document.getElementById("add").innerHTML = result;
+});
+
+function reduce(action, base, array, callback) {
+    if (callback === undefined) return;
+    var result;
+    array.push(base * array.length);
+    action(array, function(data) {
+        callback(data);
+    });
+};
+reduce(add, 15, [32, 13, 15], function(result) {
+    print(result, 'Reduce 32 + 13 + 15 with base 15: ');
+});
+
+/* Object */
+
+var guy = {
+    id       : 1,
+    name     : "John",
+    surname  : "Doe",
+    fullName : function() {
+        return this.name + " " + this.surname;
+    }
+};
+print(guy.id, 'Id: ');
+print(guy.fullName(), 'guyFullName: ');
+
+/* Object */
+
+var Utils = {
+    toCelsius: function(value) {
+        return (5 / 9) * (value - 32);
+    }
+};
+print(Utils.toCelsius(47) + ' ºC', '47 ºF is: ');
+
+/* Object */
+
+function Person() {
+    this.name = null;
+    this.surname = null;
+}
+Person.prototype.getFullName = function() {
+    return this.name + ' ' + this.surname;
+};
+
+var steve = new Person();
+steve.name = 'John';
+steve.surname = 'Doe';
+
+print(steve.getFullName());
+
+/* Object */
+
+var Animal = function() {};
+Animal.prototype.getName = function() {
+    return this.name;
+};
+
+var tiger = new Animal();
+tiger.name = 'Tiger';
+
+print(tiger.getName());
+
+/* Object */
+
+var another = {};
+another.firstName = "John";
+another.lastName = "Doe";
+another.age = 50;
+another.eyeColor = "blue";
+another.toString = function() {
+    print(this.firstName + " " + this.lastName + " is " + this.age + " years old and has " + this.eyeColor + " eyes.");
+};
+
+another.toString();
+
+/* JSON */
+
+var list = {employees : [
+    {firstName:"John", lastName:"Doe" },
+    {firstName:"Anna", lastName:"Smith" },
+    {firstName:"Peter", lastName:"Jones"}
+]};
+
+print('List:');
+print(list);
+print(JSON.stringify(list), 'List stringified directly: ');
+
+var employees = JSON.stringify(list);
+print(JSON.stringify(employees), 'Employees variable stringified: ');
+
+print('Employees parsed directly:');
+print(JSON.parse(employees));
+var oEmployees = JSON.parse(employees);
+print('Employees variable parsed:');
+print(oEmployees);
+</script>
+</html>
